@@ -2,7 +2,13 @@ var express = require('express');
 var router = express.Router();
 const scraper = require('../scraper/linkedin');
 
-/* GET home page. */
+// GET Server Status
+router.get('/', (req, res, next) => {
+  res.status = 200;
+  res.send('The server is running...')
+})
+
+/* POST Send Message to linkedin */
 router.post('/sendmessage', (req, res, next) => {
   const {message, linkedinURL, cookieValue, proxy, port, proxyUser, proxyPassword} = req.body;
   
