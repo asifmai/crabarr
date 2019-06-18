@@ -11,17 +11,23 @@ router.get('/', (req, res, next) => {
 /* POST Send Message to linkedin */
 router.post('/sendmessage', (req, res, next) => {
   const {message, linkedinURL, cookieValue, proxy, port, proxyUser, proxyPassword} = req.body;
+  if(!message || !linkedinURL || !cookieValue || !proxy || !port || !proxyUser || !proxyPassword) {
+    res.status = 500;
+    res.send('The Request body is incomplete');
+  } else {
+    scraper.sendMessage(message, linkedinURL, cookieValue, proxy, port, proxyUser, proxyPassword)
+      .then(result => {
+        console.log(result);
+        res.status = 200;
+        res.json(result);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status = 500;
+        res.send(err);
+      });
+  }
   
-  scraper.sendMessage(message, linkedinURL, cookieValue, proxy, port, proxyUser, proxyPassword)
-    .then(result => {
-      console.log(result);
-      res.status = 200;
-      res.json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.send(err);
-    });
 });
 
 module.exports = router;
