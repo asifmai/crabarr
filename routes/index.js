@@ -12,6 +12,7 @@ router.get('/', (req, res, next) => {
 router.post('/sendmessage', (req, res, next) => {
   const {message, linkedinURL, cookieValue, proxy, port, proxyUser, proxyPassword} = req.body;
   if(!message || !linkedinURL || !cookieValue || !proxy || !port || !proxyUser || !proxyPassword) {
+    console.log('Request body is incomplete')
     res.status = 500;
     res.send('The Request body is incomplete');
   } else {

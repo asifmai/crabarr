@@ -7,6 +7,7 @@ module.exports.sendMessage = (message, linkedinURL, cookieValue, proxy, port, pr
     const messageButton = await page.$('button.pv-s-profile-actions--message');
     if (messageButton) {
       await page.click('button.pv-s-profile-actions--message');
+      await page.waitForSelector('.msg-form__message-texteditor');
       await page.type('.msg-form__message-texteditor', message);
       await page.click('button.msg-form__send-button');
       await page.waitFor(5000);

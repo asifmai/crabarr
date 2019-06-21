@@ -62,9 +62,9 @@ module.exports.launchPage = (browser, cookieValue, proxyUser, proxyPassword, lin
 
 module.exports.launchBrowser = (proxy, port) => new Promise(async (resolve, reject) => {
   try {
-    const proxyServer = `${proxy}:${port}`
+    const proxyServer = `--proxy-server=${proxy}:${port}`
     const browser = await puppeteer.launch({
-      headless: true,                        // To run on headless: true
+      headless: false,                        // To run on headless: true
       args: [
         '--disable-setuid-sandbox',
         '--disable-infobars',
